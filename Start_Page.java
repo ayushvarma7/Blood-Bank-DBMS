@@ -258,7 +258,7 @@ public class Start_Page extends JFrame {
 							frmStartPage.dispose();
 						}else {
 							user_id = Integer.valueOf(user_idField.getText());
-							Dashboard myDashboard = new Dashboard(user_id, status_id);
+							Donation_centers myDashboard = new Donation_centers(user_id, status_id);
 							myDashboard.setVisible(true);
 							myPreparedStatement.close();
 							myResultset.close();
