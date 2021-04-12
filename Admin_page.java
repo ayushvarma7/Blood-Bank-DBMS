@@ -8,9 +8,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.InputStream;
+import java.io.Reader;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.sql.*;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -21,6 +23,8 @@ import javax.swing.JTable;
 import javax.swing.text.html.ImageView;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Calendar;
+import java.util.Map;
 import java.util.Objects;
 
 import java.awt.Dimension;
@@ -32,8 +36,10 @@ public class Admin_page extends JFrame {
 	private JPanel contentPane;
 	private Connection Database_Connection;
 	private ResultSet myResultset;
+	private ResultSet myResultset_don;
 	private MySQLAccess myDataBase = new MySQLAccess();
 	private Statement myStatement;
+	private Statement myStatement_don;
 	private int user_id;
 
 	/**
@@ -124,7 +130,7 @@ public class Admin_page extends JFrame {
 		contentPane.add(panel);*/
 
 		JButton btnDashboard = new JButton("Dashboard");
-		JButton btnProfile = new JButton("Profile");
+		JButton btncenter = new JButton("Donation Centers");
 		JButton btnUsers = new JButton("Users");
 		JButton btnDonors = new JButton("Donors");
 		JButton btnGroups = new JButton("Blood Groups");
@@ -136,10 +142,10 @@ public class Admin_page extends JFrame {
 		btnDashboard.setBounds(68, 150, 100, 50);
 		side_panels.add(btnDashboard);
 
-		btnProfile.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnProfile.setBackground(new Color(245, 245, 245));
-		btnProfile.setBounds(68, 250, 100, 50);
-		side_panels.add(btnProfile);
+		btncenter.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btncenter.setBackground(new Color(245, 245, 245));
+		btncenter.setBounds(38, 250, 160, 50);
+		side_panels.add(btncenter);
 
 		btnUsers.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnUsers.setBackground(new Color(245, 245, 245));
@@ -182,13 +188,9 @@ public class Admin_page extends JFrame {
 		
 		JScrollPane infoPane = new JScrollPane();
 		infoPane.setBounds(20, 100, 679, 345);
-		//contentPane.add(infoPane);
-
 		JTable table = new JTable();
-		
 		Database_Connection = myDataBase.Connect_to_DataBase();
 		myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
-
 		myResultset = myStatement.executeQuery("select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City ,  District ,  Neighborhood, Phone_No \r\n" + 
 				"from User , Status , Address , Donor , Blood_Type\r\n" + 
 				"where Donor.Donor_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Donor.Blood_Id = Blood_Type.Blood_Id\r\n" + 
@@ -199,8 +201,10 @@ public class Admin_page extends JFrame {
 				"order by User_Id");
 		
 		infoPane.setViewportView(table);
-		
 		table.setModel(DbUtils.resultSetToTableModel(myResultset));
+
+
+
 
 		// BLOOD GROUP //
 
@@ -235,6 +239,7 @@ public class Admin_page extends JFrame {
 					dash_label.setFont(new Font("Tahoma", Font.BOLD, 33));
 					dash_label.setHorizontalAlignment(SwingConstants.CENTER);
 					dash_label.setBounds(200, 0, 231, 72);
+
 					main_content.add(dash_label);
 					main_content.repaint();
 
@@ -246,13 +251,17 @@ public class Admin_page extends JFrame {
 			}
 		});
 
-		btnProfile.addActionListener(new ActionListener() {
+		btncenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Profile_Admin myProfileAdmin;
+				//Profile_Admin myProfileAdmin;
+				Donation_centers d_center;
 				try {
-					myProfileAdmin = new Profile_Admin(user_id);
-					myProfileAdmin.setVisible(true);
+				//	myProfileAdmin = new Profile_Admin(user_id);
+					d_center = new Donation_centers(user_id,1);
+					d_center.setVisible(true);
 					dispose();
+				//	myProfileAdmin.setVisible(true);
+				//	dispose();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -302,6 +311,20 @@ public class Admin_page extends JFrame {
 					don_label.setFont(new Font("Tahoma", Font.BOLD, 33));
 					don_label.setHorizontalAlignment(SwingConstants.CENTER);
 					don_label.setBounds(200, 0, 231, 72);
+
+					JScrollPane infoPane = new JScrollPane();
+					infoPane.setBounds(20, 100, 679, 345);
+					JTable table = new JTable();
+					Database_Connection = myDataBase.Connect_to_DataBase();
+					myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
+					myResultset = myStatement.executeQuery("select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City ,  District ,  Neighborhood, Phone_No \r\n" +
+							"from User , Status , Address , Donor , Blood_Type\r\n" +
+							"where Donor.Donor_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Donor.Blood_Id = Blood_Type.Blood_Id\r\n");
+
+					infoPane.setViewportView(table);
+					table.setModel(DbUtils.resultSetToTableModel(myResultset));
+					main_content.add(infoPane);
+
 					main_content.add(don_label);
 					main_content.repaint();
 
