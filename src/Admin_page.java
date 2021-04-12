@@ -177,7 +177,14 @@ public class Admin_page extends JFrame {
 		side_panels.add(saveLifeLabel);
 		*/
 
-		JLabel welcom_label = new JLabel("Welcome Admin");
+		Database_Connection = myDataBase.Connect_to_DataBase();
+		myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
+//		myResultset=myStatement.executeQuery("Select First_name from User, Recipient where User.User_Id= Recipient.Recipient_Id");
+		myResultset=myStatement.executeQuery("Select user_id from user where address_id=1000000 ");
+
+		JLabel welcom_label = new JLabel("Welcome ");
+		welcom_label.setText(welcom_label.getText()+ myResultset);
+		System.out.println(myResultset.getString("user_id"));
 		welcom_label.setForeground(new Color(203,26,23));
 		welcom_label.setFont(new Font("Helvetica", Font.BOLD, 44));
 		welcom_label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -199,7 +206,6 @@ public class Admin_page extends JFrame {
 				"from User , Status , Address , Recipient , Blood_Type\r\n" +
 				"where Recipient.Recipient_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Recipient.Blood_Id = Blood_Type.Blood_Id\r\n" +
 				"order by User_Id");
-
 		infoPane.setViewportView(table);
 		table.setModel(DbUtils.resultSetToTableModel(myResultset));
 
@@ -270,25 +276,7 @@ public class Admin_page extends JFrame {
 		});
 
 
-		btnUsers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent useraction) {
-				try {
-					main_content.removeAll();
-					JLabel users_label = new JLabel("Users");
-					users_label.setForeground(Color.WHITE);
-					users_label.setFont(new Font("Tahoma", Font.BOLD, 33));
-					users_label.setHorizontalAlignment(SwingConstants.CENTER);
-					users_label.setBounds(200, 0, 231, 72);
-					main_content.add(users_label);
-					main_content.add(infoPane);
-					main_content.repaint();
 
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 
 		btnDashboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent useraction) {
@@ -335,6 +323,27 @@ public class Admin_page extends JFrame {
 				}
 			}
 		});
+
+		btnUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent useraction) {
+				try {
+					main_content.removeAll();
+					JLabel users_label = new JLabel("Users");
+					users_label.setForeground(Color.WHITE);
+					users_label.setFont(new Font("Tahoma", Font.BOLD, 33));
+					users_label.setHorizontalAlignment(SwingConstants.CENTER);
+					users_label.setBounds(200, 0, 231, 72);
+					main_content.add(users_label);
+					main_content.add(infoPane);
+					main_content.repaint();
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
 
 		btnGroups.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent grpaction) {

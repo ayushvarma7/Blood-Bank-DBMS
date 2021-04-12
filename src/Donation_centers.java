@@ -68,12 +68,13 @@ public class Donation_centers extends JFrame {
     }
 
     void Initialize() throws Exception {
-        setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        setFont(new Font("Times New Roman", Font.CENTER_BASELINE, 17));
         setTitle("Donation centers\r\n");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 0, 983, 728);
+//        setBounds(100, 0, 983, 728);
+        setBounds(75, 0, 1160, 750);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(0, 5, 20, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
@@ -88,7 +89,8 @@ public class Donation_centers extends JFrame {
         btnNewButton.setBackground(Color.white);
         btnNewButton.setForeground(Color.WHITE);
         btnNewButton.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/exit.png")));
-        btnNewButton.setBounds(900, 11, 61, 67);
+//        btnNewButton.setBounds(900, 11, 61, 67);
+        btnNewButton.setBounds(1050, 11, 61, 67);
         contentPane.add(btnNewButton);
 
 
@@ -99,87 +101,66 @@ public class Donation_centers extends JFrame {
         nameRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameRightLabel.setForeground(new Color(220, 20, 60));
         nameRightLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
-        nameRightLabel.setBounds(785, 426, 324, 48);
+        nameRightLabel.setBounds(785, 406, 324, 48);
         contentPane.add(nameRightLabel);
 
         JLabel cityRightLabel = new JLabel("city name here");
         cityRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cityRightLabel.setForeground(new Color(220, 20, 60));
-        cityRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 23));
-        cityRightLabel.setBounds(829, 489, 235, 26);
+        cityRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+        cityRightLabel.setBounds(829, 460, 235, 26);
         contentPane.add(cityRightLabel);
 
         JLabel phonenoRightLabel = new JLabel("phone number here");
         phonenoRightLabel.setForeground(new Color(220, 20, 60));
         phonenoRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 23));
-        phonenoRightLabel.setBounds(884, 536, 231, 48);
+        phonenoRightLabel.setBounds(884, 496, 231, 48);
         contentPane.add(phonenoRightLabel);
 
         JLabel addressRightLabel = new JLabel("address here");
         addressRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addressRightLabel.setForeground(new Color(220, 20, 60));
         addressRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressRightLabel.setBounds(788, 592, 319, 41);
+        addressRightLabel.setBounds(788, 542, 319, 41);
         contentPane.add(addressRightLabel);
 
         JLabel nameLeftLabel = new JLabel("center name here");
         nameLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLeftLabel.setForeground(new Color(220, 20, 60));
-        nameLeftLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 20));
+        nameLeftLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
         nameLeftLabel.setBounds(81, 412, 215, 48);
         contentPane.add(nameLeftLabel);
 
         JLabel cityLeftLabel = new JLabel("city name here");
         cityLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cityLeftLabel.setForeground(new Color(220, 20, 60));
-        cityLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 23));
-        cityLeftLabel.setBounds(47, 475, 286, 31);
+        cityLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+        cityLeftLabel.setBounds(47, 465, 286, 31);
         contentPane.add(cityLeftLabel);
 
         JLabel phonenoLeftLabel = new JLabel("phone number here");
         phonenoLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
         phonenoLeftLabel.setForeground(new Color(220, 20, 60));
         phonenoLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-        phonenoLeftLabel.setBounds(53, 528, 269, 48);
+        phonenoLeftLabel.setBounds(53, 498, 269, 48);
         contentPane.add(phonenoLeftLabel);
 
         JLabel addressLeftLabel = new JLabel("address here");
         addressLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addressLeftLabel.setForeground(new Color(220, 20, 60));
         addressLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressLeftLabel.setBounds(29, 592, 301, 41);
+        addressLeftLabel.setBounds(29, 542, 301, 41);
         contentPane.add(addressLeftLabel);
-
-        JButton btnNewButton_1 = new JButton("Update Info");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                try {
-
-                    Update_Donor_Recipient_Frame myUpdatePage;
-                    myUpdatePage = new Update_Donor_Recipient_Frame(user_id, status_id);
-                    myUpdatePage.setVisible(true);
-                    dispose();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        btnNewButton_1.setForeground(Color.BLACK);
-        btnNewButton_1.setBounds(10, 11, 132, 48);
-        contentPane.add(btnNewButton_1);
 
         JLabel nameMidLabel = new JLabel("center name here");
         nameMidLabel.setForeground(new Color(220, 20, 60));
-        nameMidLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 26));
+        nameMidLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
         nameMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameMidLabel.setBounds(393, 362, 361, 48);
         contentPane.add(nameMidLabel);
 
         JLabel cityMidLabel = new JLabel("city name here");
-        cityMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 23));
+        cityMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
         cityMidLabel.setForeground(new Color(220, 20, 60));
         cityMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cityMidLabel.setBounds(446, 423, 251, 45);
@@ -189,14 +170,14 @@ public class Donation_centers extends JFrame {
         phonenoMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
         phonenoMidLabel.setForeground(new Color(220, 20, 60));
         phonenoMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 21));
-        phonenoMidLabel.setBounds(432, 497, 291, 53);
+        phonenoMidLabel.setBounds(432, 477, 291, 53);
         contentPane.add(phonenoMidLabel);
 
         JLabel addressMidLabel = new JLabel("address here");
         addressMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addressMidLabel.setForeground(new Color(220, 20, 60));
         addressMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressMidLabel.setBounds(381, 573, 381, 58);
+        addressMidLabel.setBounds(381, 523, 381, 58);
         contentPane.add(addressMidLabel);
 
         JLabel MidPhotoLabel = new JLabel("");
@@ -221,6 +202,27 @@ public class Donation_centers extends JFrame {
         Main_Title_label.setBounds(195, 10, 563, 81);
         contentPane.add(Main_Title_label);
 
+        JButton btnNewButton_1 = new JButton("Update Info");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                try {
+
+                    Update_Donor_Recipient_Frame myUpdatePage;
+                    myUpdatePage = new Update_Donor_Recipient_Frame(user_id, status_id);
+                    myUpdatePage.setVisible(true);
+                    dispose();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        btnNewButton_1.setForeground(Color.BLACK);
+        btnNewButton_1.setBounds(10, 11, 132, 48);
+        contentPane.add(btnNewButton_1);
+
         JButton contactUs_btn_left = new JButton("Contact us!");
         contactUs_btn_left.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -231,7 +233,7 @@ public class Donation_centers extends JFrame {
         });
         contactUs_btn_left.setForeground(new Color(255, 250, 240));
         contactUs_btn_left.setBackground(new Color(220, 20, 60));
-        contactUs_btn_left.setBounds(132, 648, 132, 36);
+        contactUs_btn_left.setBounds(132, 600, 132, 36);
         contentPane.add(contactUs_btn_left);
 
         JButton contactUs_btn_mid = new JButton("Contact us!");
@@ -244,7 +246,7 @@ public class Donation_centers extends JFrame {
         });
         contactUs_btn_mid.setForeground(new Color(255, 250, 240));
         contactUs_btn_mid.setBackground(new Color(220, 20, 60));
-        contactUs_btn_mid.setBounds(515, 654, 132, 36);
+        contactUs_btn_mid.setBounds(515, 600, 132, 36);
         contentPane.add(contactUs_btn_mid);
 
         JButton contactUs_btn_right = new JButton("Contact us!");
@@ -257,7 +259,7 @@ public class Donation_centers extends JFrame {
         });
         contactUs_btn_right.setForeground(new Color(255, 250, 240));
         contactUs_btn_right.setBackground(new Color(220, 20, 60));
-        contactUs_btn_right.setBounds(893, 660, 132, 36);
+        contactUs_btn_right.setBounds(893, 600, 132, 36);
         contentPane.add(contactUs_btn_right);
 
         // PUT LEFT AND RIGHT ARROWS
@@ -310,7 +312,7 @@ public class Donation_centers extends JFrame {
 
         donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
         donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
-        donationCenterGroup_btn_1.setBounds(533, 125, 97, 25);
+        donationCenterGroup_btn_1.setBounds(533, 100, 97, 25);
         contentPane.add(donationCenterGroup_btn_1);
 
 

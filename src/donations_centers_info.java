@@ -35,7 +35,7 @@ public class donations_centers_info extends JFrame {
 	 * Create the frame.
 	 */
 	public donations_centers_info() {
-		setTitle("Kocasinan center");
+		setTitle("Donation center");
 		setType(Type.POPUP);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 735, 679);
@@ -62,14 +62,14 @@ public class donations_centers_info extends JFrame {
 		bloodBankFixed.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		bloodBankFixed.setHorizontalAlignment(SwingConstants.CENTER);
 		bloodBankFixed.setForeground(new Color(220, 20, 60));
-		bloodBankFixed.setBounds(194, 167, 90, 41);
+		bloodBankFixed.setBounds(172, 167, 185, 41);
 		contentPane.add(bloodBankFixed);
 
 		JLabel CapacityFixed = new JLabel("Blood capacity:");
 		CapacityFixed.setHorizontalAlignment(SwingConstants.CENTER);
 		CapacityFixed.setForeground(new Color(220, 20, 60));
 		CapacityFixed.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		CapacityFixed.setBounds(194, 266, 111, 41);
+		CapacityFixed.setBounds(172, 266, 185, 41);
 		contentPane.add(CapacityFixed);
 
 		JLabel AmountFixed = new JLabel("To be determined");
