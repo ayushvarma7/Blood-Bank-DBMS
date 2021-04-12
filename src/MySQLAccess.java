@@ -25,8 +25,8 @@ public class MySQLAccess {
 	      
 	 
 	      return connect = DriverManager
-//	          .getConnection(databaseJDBC_URI, user, passwd );
-				  .getConnection("jdbc:mysql://localhost:3307/blood_donation_database", "ayush", "test1234" );
+	          .getConnection(databaseJDBC_URI, user, passwd );
+//				  .getConnection("jdbc:mysql://localhost:3307/blood_donation_database", "ayush", "test1234" );
 
        }catch(Exception e) {
     	   	JOptionPane myOption = new JOptionPane();
