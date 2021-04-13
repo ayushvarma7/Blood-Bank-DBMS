@@ -46,11 +46,9 @@ public class DonationCenterInfo extends JFrame {
 		Initialize();
 	}
 	
-	public DonationCenterInfo(String bankName, String cityName, String phoneNo, String address, int user_id, int status_id) {
+	public DonationCenterInfo(String bankName, String cityName, int user_id, int status_id) {
 		this.bankName = bankName;
 		this.cityName = cityName;
-		this.phoneNo = phoneNo;
-		this.address = address;
 		this.status_id = status_id;
 		this.user_id = user_id;
 		Initialize();
@@ -105,9 +103,9 @@ public class DonationCenterInfo extends JFrame {
 		btnReturn.setBackground(new Color(255, 255, 255));
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Dashboard myDashboard;
+				Donation_centers myDashboard;
 				try {
-					myDashboard = new Dashboard(user_id, status_id);
+					myDashboard = new Donation_centers(user_id, status_id);
 					myDashboard.setVisible(true);
 					dispose();
 				} catch (Exception e1) {
