@@ -264,8 +264,55 @@ public class Donation_centers extends JFrame {
 
 		donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
 		donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
-		donationCenterGroup_btn_1.setBounds(444, 230, 97, 25);
+		donationCenterGroup_btn_1.setBounds(544, 230, 97, 25);
 		contentPane.add(donationCenterGroup_btn_1);
+
+
+		//Previous Button
+		JButton donationCenterGroup_btn_2 = new JButton("Previous");
+		donationCenterGroup_btn_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if(number_of_updates_done ==0) {
+					JOptionPane myOption = new JOptionPane();
+					myOption.showMessageDialog(null, "Click on the next button to view the centers");
+				}else if (number_of_updates_done>0){
+					if(update_index == 1) {
+						nameLeftLabel.setText(bankName.get(number_of_updates_done));
+						cityLeftLabel.setText(cityName.get(number_of_updates_done));
+
+						number_of_updates_done--;
+						update_index++;
+					}
+
+					if(number_of_updates_done != length_of_tuples) {
+						if(update_index == 2) {
+							nameMidLabel.setText(bankName.get(number_of_updates_done));
+							cityMidLabel.setText(cityName.get(number_of_updates_done));
+
+							number_of_updates_done--;
+							update_index++;
+						}
+					}
+
+					if(number_of_updates_done != length_of_tuples) {
+						if(update_index == 3) {
+							nameRightLabel.setText(bankName.get(number_of_updates_done));
+							cityRightLabel.setText(cityName.get(number_of_updates_done));
+							number_of_updates_done--;
+							update_index = 1;
+						}
+					}
+
+
+				}
+			}
+		});
+
+		donationCenterGroup_btn_2.setForeground(new Color(255, 255, 255));
+		donationCenterGroup_btn_2.setBackground(new Color(220, 20, 60));
+		donationCenterGroup_btn_2.setBounds(344, 230, 97, 25);
+		contentPane.add(donationCenterGroup_btn_2);
 
 
 		JLabel templateLabel = new JLabel("");

@@ -180,11 +180,12 @@ public class Admin_page extends JFrame {
 		Database_Connection = myDataBase.Connect_to_DataBase();
 		myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
 //		myResultset=myStatement.executeQuery("Select First_name from User, Recipient where User.User_Id= Recipient.Recipient_Id");
-		myResultset=myStatement.executeQuery("Select user_id from user where address_id=1000000 ");
-
+//		myResultset=myStatement.executeQuery("Select user_id from user where address_id=1000000 ");
+		myResultset=myStatement.executeQuery("SELECT `First_Name` FROM `Recipient`JOIN User where User.User_Id=Recipient.Recipient_Id ");
 		JLabel welcom_label = new JLabel("Welcome ");
 		welcom_label.setText(welcom_label.getText()+ myResultset);
-		System.out.println(myResultset.getString("user_id"));
+
+//		System.out.println(myResultset.getString("First_Name"));
 		welcom_label.setForeground(new Color(203,26,23));
 		welcom_label.setFont(new Font("Helvetica", Font.BOLD, 44));
 		welcom_label.setHorizontalAlignment(SwingConstants.CENTER);

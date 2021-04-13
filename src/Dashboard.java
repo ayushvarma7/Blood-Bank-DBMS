@@ -226,7 +226,7 @@ public class Dashboard extends JFrame {
 		JButton contactUs_btn_left = new JButton("Contact us!");
 		contactUs_btn_left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameLeftLabel.getText(), cityLeftLabel.getText(), phonenoLeftLabel.getText(), addressLeftLabel.getText(), user_id, status_id);
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameLeftLabel.getText(), cityLeftLabel.getText(), user_id, status_id);
 				myDonationCenterInfo.setVisible(true);
 				dispose();
 			}
@@ -239,7 +239,7 @@ public class Dashboard extends JFrame {
 		JButton contactUs_btn_mid = new JButton("Contact us!");
 		contactUs_btn_mid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameMidLabel.getText(), cityMidLabel.getText(), phonenoMidLabel.getText(), addressMidLabel.getText(), user_id, status_id);
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameMidLabel.getText(), cityMidLabel.getText(), user_id, status_id);
 				myDonationCenterInfo.setVisible(true);
 				dispose();
 			}
@@ -252,7 +252,7 @@ public class Dashboard extends JFrame {
 		JButton contactUs_btn_right = new JButton("Contact us!");
 		contactUs_btn_right.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameRightLabel.getText(), cityRightLabel.getText(), phonenoRightLabel.getText(), addressRightLabel.getText(), user_id, status_id);
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameRightLabel.getText(), cityRightLabel.getText(), user_id, status_id);
 				myDonationCenterInfo.setVisible(true);
 				dispose();
 			}
