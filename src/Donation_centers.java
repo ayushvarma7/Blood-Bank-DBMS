@@ -1,20 +1,21 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Window.Type;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -22,357 +23,302 @@ import java.awt.event.ActionEvent;
 
 public class Donation_centers extends JFrame {
 
-    private JPanel contentPane;
-    private int user_id;
-    private Connection Database_Connection;
-    private ResultSet myResultset;
-    private MySQLAccess myDataBase = new MySQLAccess();
-    private Statement myStatement;
-    private ArrayList<String> bankName = new ArrayList();
-    private ArrayList<String> cityName = new ArrayList();
-    private ArrayList<String> phone_No = new ArrayList();
-    private ArrayList<String> addressDetails = new ArrayList();
-    private int length_of_tuples;
-    private int number_of_updates_done = 0;
-    private int update_index = 1;
-    private int status_id;
+	private JPanel contentPane;
+	private int user_id;
+	private Connection Database_Connection;
+	private ResultSet myResultset;
+	private MySQLAccess myDataBase = new MySQLAccess();
+	private Statement myStatement;
+	private ArrayList<String> bankName = new ArrayList();
+	private ArrayList<String> cityName = new ArrayList();
+	private ArrayList<String> phone_No = new ArrayList();
+	private ArrayList<String> addressDetails = new ArrayList();
+	private int length_of_tuples;
+	private int number_of_updates_done = 0;
+	private int update_index = 1;
+	private int status_id;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Donation_centers frame = new Donation_centers();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Donation_centers frame = new Donation_centers();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-    /**
-     * Create the frame.
-     * @throws Exception
-     */
-    public Donation_centers() throws Exception {
-        Initialize();
-    }
+	/**
+	 * Create the frame.
+	 * @throws Exception
+	 */
+	public Donation_centers() throws Exception {
+		Initialize();
+	}
 
-    public Donation_centers(int user_id, int status_id) throws Exception {
-        this.user_id = user_id;
-        this.status_id = status_id;
-        Initialize();
-    }
+	public Donation_centers(int user_id, int status_id) throws Exception {
+		this.user_id = user_id;
+		this.status_id = status_id;
+		Initialize();
+	}
 
-    void Initialize() throws Exception {
-        setFont(new Font("Times New Roman", Font.CENTER_BASELINE, 17));
-        setTitle("Donation centers\r\n");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setBounds(100, 0, 983, 728);
-        setBounds(75, 0, 1160, 750);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(0, 5, 20, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+	void Initialize() throws Exception {
+		setFont(new Font("Times New Roman", Font.CENTER_BASELINE, 17));
+		setTitle("Donation centers\r\n");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 0, 983, 688);
+	//	setBounds(75, 0, 1160, 750);
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
-        JButton btnNewButton = new JButton(""); //EXIT
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                Start_Page myStartPage = new Start_Page();
-                myStartPage.setVisible(true);
-                dispose();
-            }
-        });
-        btnNewButton.setBackground(Color.white);
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/exit.png")));
-//        btnNewButton.setBounds(900, 11, 61, 67);
-        btnNewButton.setBounds(1050, 11, 61, 67);
-        contentPane.add(btnNewButton);
+		JButton btnNewButton = new JButton("Exit"); //EXIT
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Start_Page myStartPage = new Start_Page();
+				myStartPage.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBackground(Color.white);
+		btnNewButton.setForeground(Color.RED);
+       btnNewButton.setBounds(900, 11, 61, 50);
+//		btnNewButton.setBounds(1050, 11, 61, 67);
+		contentPane.add(btnNewButton);
 
 
+		JButton btnBackButton = new JButton("Back"); //BACK
+		btnBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				Admin_page myAdminPage = null;
+				try {
+					myAdminPage = new Admin_page(user_id);
+					myAdminPage.setVisible(true);
+					dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		btnBackButton.setBackground(Color.white);
+		btnBackButton.setForeground(Color.RED);
+		btnBackButton.setBounds(10, 11, 81, 50);
+//		btnNewButton.setBounds(1050, 11, 61, 67);
+		contentPane.add(btnBackButton);
+
+		final BufferedImage image = ImageIO.read(new URL(
+				"https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-blood-donation-art-free-simple-white-banner-image_180424.jpg"));
+
+		Graphics g = image.getGraphics();
+		g.setFont(g.getFont().deriveFont(27f));
+		g.setColor(Color.RED);
+		g.drawString("GIVE A BIT, CHANGE A LOT", 320, 200);
+		g.drawString("CREATE A BRIGHT FUTURE", 350, 250);
+		g.dispose();
+		ImageIO.write(image, "png", new File("test.png"));
+
+		JLabel banner;
+		ImageIcon banner1 = new ImageIcon("test.png");
+		banner = new JLabel("",banner1,JLabel.CENTER);
+		banner.setBounds(0,0,1000,220);
+		contentPane.add(banner);
 
 
 
-        JLabel nameRightLabel = new JLabel("center name here");
-        nameRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        nameRightLabel.setForeground(new Color(220, 20, 60));
-        nameRightLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
-        nameRightLabel.setBounds(785, 406, 324, 48);
-        contentPane.add(nameRightLabel);
+		JLabel nameRightLabel = new JLabel("Donation center Name");
+		nameRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameRightLabel.setForeground(Color.black);
+		nameRightLabel.setFont(new Font("Comic Sans MS", Font.BOLD , 22));
+		nameRightLabel.setBounds(650, 362, 324, 48);
+		contentPane.add(nameRightLabel);
 
-        JLabel cityRightLabel = new JLabel("city name here");
-        cityRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cityRightLabel.setForeground(new Color(220, 20, 60));
-        cityRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        cityRightLabel.setBounds(829, 460, 235, 26);
-        contentPane.add(cityRightLabel);
-
-        JLabel phonenoRightLabel = new JLabel("phone number here");
-        phonenoRightLabel.setForeground(new Color(220, 20, 60));
-        phonenoRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 23));
-        phonenoRightLabel.setBounds(884, 496, 231, 48);
-        contentPane.add(phonenoRightLabel);
-
-        JLabel addressRightLabel = new JLabel("address here");
-        addressRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        addressRightLabel.setForeground(new Color(220, 20, 60));
-        addressRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressRightLabel.setBounds(788, 542, 319, 41);
-        contentPane.add(addressRightLabel);
-
-        JLabel nameLeftLabel = new JLabel("center name here");
-        nameLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        nameLeftLabel.setForeground(new Color(220, 20, 60));
-        nameLeftLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
-        nameLeftLabel.setBounds(81, 412, 215, 48);
-        contentPane.add(nameLeftLabel);
-
-        JLabel cityLeftLabel = new JLabel("city name here");
-        cityLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cityLeftLabel.setForeground(new Color(220, 20, 60));
-        cityLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        cityLeftLabel.setBounds(47, 465, 286, 31);
-        contentPane.add(cityLeftLabel);
-
-        JLabel phonenoLeftLabel = new JLabel("phone number here");
-        phonenoLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        phonenoLeftLabel.setForeground(new Color(220, 20, 60));
-        phonenoLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-        phonenoLeftLabel.setBounds(53, 498, 269, 48);
-        contentPane.add(phonenoLeftLabel);
-
-        JLabel addressLeftLabel = new JLabel("address here");
-        addressLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        addressLeftLabel.setForeground(new Color(220, 20, 60));
-        addressLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressLeftLabel.setBounds(29, 542, 301, 41);
-        contentPane.add(addressLeftLabel);
-
-        JLabel nameMidLabel = new JLabel("center name here");
-        nameMidLabel.setForeground(new Color(220, 20, 60));
-        nameMidLabel.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 22));
-        nameMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        nameMidLabel.setBounds(393, 362, 361, 48);
-        contentPane.add(nameMidLabel);
-
-        JLabel cityMidLabel = new JLabel("city name here");
-        cityMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        cityMidLabel.setForeground(new Color(220, 20, 60));
-        cityMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cityMidLabel.setBounds(446, 423, 251, 45);
-        contentPane.add(cityMidLabel);
-
-        JLabel phonenoMidLabel = new JLabel("phone number here");
-        phonenoMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        phonenoMidLabel.setForeground(new Color(220, 20, 60));
-        phonenoMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 21));
-        phonenoMidLabel.setBounds(432, 477, 291, 53);
-        contentPane.add(phonenoMidLabel);
-
-        JLabel addressMidLabel = new JLabel("address here");
-        addressMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        addressMidLabel.setForeground(new Color(220, 20, 60));
-        addressMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-        addressMidLabel.setBounds(381, 523, 381, 58);
-        contentPane.add(addressMidLabel);
-
-        JLabel MidPhotoLabel = new JLabel("");
-        MidPhotoLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/donation centers photo1.jpg")));
-        MidPhotoLabel.setBounds(461, 179, 241, 180);
-        contentPane.add(MidPhotoLabel);
-
-        JLabel leftPhotoLabel = new JLabel("");
-        leftPhotoLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/donation centers photo3.jpg")));
-        leftPhotoLabel.setBounds(74, 223, 210, 180);
-        contentPane.add(leftPhotoLabel);
-
-        JLabel RightPhotoLabel = new JLabel("");
-        RightPhotoLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/donation centers photo2.jpg")));
-        RightPhotoLabel.setBounds(849, 226, 228, 180);
-        contentPane.add(RightPhotoLabel);
-
-        JLabel Main_Title_label = new JLabel("Donation centers");
-        Main_Title_label.setForeground(new Color(203,26,23));
-        Main_Title_label.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 37));
-        Main_Title_label.setHorizontalAlignment(SwingConstants.CENTER);
-        Main_Title_label.setBounds(195, 10, 563, 81);
-        contentPane.add(Main_Title_label);
-
-        JButton btnNewButton_1 = new JButton("Update Info");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                try {
-
-                    Update_Donor_Recipient_Frame myUpdatePage;
-                    myUpdatePage = new Update_Donor_Recipient_Frame(user_id, status_id);
-                    myUpdatePage.setVisible(true);
-                    dispose();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        btnNewButton_1.setForeground(Color.BLACK);
-        btnNewButton_1.setBounds(10, 11, 132, 48);
-        contentPane.add(btnNewButton_1);
-
-        JButton contactUs_btn_left = new JButton("Contact us!");
-        contactUs_btn_left.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameLeftLabel.getText(), cityLeftLabel.getText(), phonenoLeftLabel.getText(), addressLeftLabel.getText(), user_id, status_id);
-                myDonationCenterInfo.setVisible(true);
-                dispose();
-            }
-        });
-        contactUs_btn_left.setForeground(new Color(255, 250, 240));
-        contactUs_btn_left.setBackground(new Color(220, 20, 60));
-        contactUs_btn_left.setBounds(132, 600, 132, 36);
-        contentPane.add(contactUs_btn_left);
-
-        JButton contactUs_btn_mid = new JButton("Contact us!");
-        contactUs_btn_mid.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameMidLabel.getText(), cityMidLabel.getText(), phonenoMidLabel.getText(), addressMidLabel.getText(), user_id, status_id);
-                myDonationCenterInfo.setVisible(true);
-                dispose();
-            }
-        });
-        contactUs_btn_mid.setForeground(new Color(255, 250, 240));
-        contactUs_btn_mid.setBackground(new Color(220, 20, 60));
-        contactUs_btn_mid.setBounds(515, 600, 132, 36);
-        contentPane.add(contactUs_btn_mid);
-
-        JButton contactUs_btn_right = new JButton("Contact us!");
-        contactUs_btn_right.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameRightLabel.getText(), cityRightLabel.getText(), phonenoRightLabel.getText(), addressRightLabel.getText(), user_id, status_id);
-                myDonationCenterInfo.setVisible(true);
-                dispose();
-            }
-        });
-        contactUs_btn_right.setForeground(new Color(255, 250, 240));
-        contactUs_btn_right.setBackground(new Color(220, 20, 60));
-        contactUs_btn_right.setBounds(893, 600, 132, 36);
-        contentPane.add(contactUs_btn_right);
-
-        // PUT LEFT AND RIGHT ARROWS
-        JButton donationCenterGroup_btn_1 = new JButton("Next");
-        donationCenterGroup_btn_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                if(number_of_updates_done == length_of_tuples) {
-                    JOptionPane myOption = new JOptionPane();
-                    myOption.showMessageDialog(null, "All available blood banks displayed");
-                }else {
-                    if(update_index == 1) {
-                        nameLeftLabel.setText(bankName.get(number_of_updates_done));
-                        cityLeftLabel.setText(cityName.get(number_of_updates_done));
-                        phonenoLeftLabel.setText(phone_No.get(number_of_updates_done));
-                        addressLeftLabel.setText(addressDetails.get(number_of_updates_done));
-
-                        number_of_updates_done++;
-                        update_index++;
-                    }
-
-                    if(number_of_updates_done != length_of_tuples) {
-                        if(update_index == 2) {
-                            nameMidLabel.setText(bankName.get(number_of_updates_done));
-                            cityMidLabel.setText(cityName.get(number_of_updates_done));
-                            phonenoMidLabel.setText(phone_No.get(number_of_updates_done));
-                            addressMidLabel.setText(addressDetails.get(number_of_updates_done));
-
-                            number_of_updates_done++;
-                            update_index++;
-                        }
-                    }
-
-                    if(number_of_updates_done != length_of_tuples) {
-                        if(update_index == 3) {
-                            nameRightLabel.setText(bankName.get(number_of_updates_done));
-                            cityRightLabel.setText(cityName.get(number_of_updates_done));
-                            phonenoRightLabel.setText(phone_No.get(number_of_updates_done));
-                            addressRightLabel.setText(addressDetails.get(number_of_updates_done));
-
-                            number_of_updates_done++;
-                            update_index = 1;
-                        }
-                    }
+		JLabel cityRightLabel = new JLabel("Region");
+		cityRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cityRightLabel.setForeground(Color.black);
+		cityRightLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		cityRightLabel.setBounds(680, 423, 235, 26);
+		contentPane.add(cityRightLabel);
 
 
-                }
-            }
-        });
+		JLabel nameLeftLabel = new JLabel("Donation center Name");
+		nameLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLeftLabel.setForeground(Color.black);
+		nameLeftLabel.setFont(new Font("Comic Sans MS", Font.BOLD , 22));
+		nameLeftLabel.setBounds(70, 362, 215, 48);
+		contentPane.add(nameLeftLabel);
 
-        donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
-        donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
-        donationCenterGroup_btn_1.setBounds(533, 100, 97, 25);
-        contentPane.add(donationCenterGroup_btn_1);
-
-
-        JLabel templateLabel = new JLabel("");
-        templateLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/Donation centers.png")));
-        templateLabel.setBounds(0, 0, 1137, 724);
-        contentPane.add(templateLabel);
-
-        JLabel lblNewLabel = new JLabel("New label");
-        lblNewLabel.setBounds(573, 381, 46, 14);
-        contentPane.add(lblNewLabel);
-
-        Database_Connection = myDataBase.Connect_to_DataBase();
-        myStatement = Database_Connection.createStatement();
-        myResultset = myStatement.executeQuery("SELECT Name, City, District, Neighborhood, Phone_no from Blood_Bank, Address, User, Status where Blood_Bank.Bank_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id");
+		JLabel cityLeftLabel = new JLabel("Region");
+		cityLeftLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cityLeftLabel.setForeground(Color.black);
+		cityLeftLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		cityLeftLabel.setBounds(30, 423, 286, 31);
+		contentPane.add(cityLeftLabel);
 
 
-        while(myResultset.next()) {
-            bankName.add(myResultset.getString("Name"));
-            cityName.add(myResultset.getString("City"));
-            phone_No.add(myResultset.getString("Phone_no"));
-            addressDetails.add(myResultset.getString("Neighborhood") + ", " + myResultset.getString("District"));
-            length_of_tuples++;
-        }
+		JLabel nameMidLabel = new JLabel("Donation center Name");
+		nameMidLabel.setForeground(Color.black);
+		nameMidLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
+		nameMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameMidLabel.setBounds(320, 362, 361, 48);
+		contentPane.add(nameMidLabel);
 
-        if(number_of_updates_done != length_of_tuples) {
-            if(update_index == 1) {
-                nameLeftLabel.setText(bankName.get(number_of_updates_done));
-                cityLeftLabel.setText(cityName.get(number_of_updates_done));
-                phonenoLeftLabel.setText(phone_No.get(number_of_updates_done));
-                addressLeftLabel.setText(addressDetails.get(number_of_updates_done));
+		JLabel cityMidLabel = new JLabel("Region");
+		cityMidLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		cityMidLabel.setForeground(Color.black);
+		cityMidLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cityMidLabel.setBounds(370, 423, 251, 45);
+		contentPane.add(cityMidLabel);
 
-                number_of_updates_done++;
-                update_index++;
-            }
-        }
 
-        if(number_of_updates_done != length_of_tuples) {
-            if(update_index == 2) {
-                nameMidLabel.setText(bankName.get(number_of_updates_done));
-                cityMidLabel.setText(cityName.get(number_of_updates_done));
-                phonenoMidLabel.setText(phone_No.get(number_of_updates_done));
-                addressMidLabel.setText(addressDetails.get(number_of_updates_done));
+		JButton contactUs_btn_left = new JButton("Contact us!");
+		contactUs_btn_left.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameLeftLabel.getText(), cityLeftLabel.getText(), user_id, status_id);
+				myDonationCenterInfo.setVisible(true);
+				dispose();
+			}
+		});
 
-                number_of_updates_done++;
-                update_index++;
-            }
-        }
+		contactUs_btn_left.setForeground(new Color(255, 250, 240));
+		contactUs_btn_left.setBackground(new Color(220, 20, 60));
+		contactUs_btn_left.setBounds(100, 500, 132, 36);
+		contentPane.add(contactUs_btn_left);
 
-        if(number_of_updates_done != length_of_tuples) {
-            if(update_index == 3) {
-                nameRightLabel.setText(bankName.get(number_of_updates_done));
-                cityRightLabel.setText(cityName.get(number_of_updates_done));
-                phonenoRightLabel.setText(phone_No.get(number_of_updates_done));
-                addressRightLabel.setText(addressDetails.get(number_of_updates_done));
+		JButton contactUs_btn_mid = new JButton("Contact us!"); //CONTACT US WHITE BEKAAR PAGE KHULTA HAI
+		contactUs_btn_mid.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameMidLabel.getText(), cityMidLabel.getText(), user_id, status_id);
+				myDonationCenterInfo.setVisible(true);
+				dispose();
+			}
+		});
 
-                number_of_updates_done++;
-                update_index = 1;
-            }
-        }
+		contactUs_btn_mid.setForeground(Color.white);
+		contactUs_btn_mid.setBackground(new Color(220, 20, 60));
+		contactUs_btn_mid.setBounds(430, 500, 132, 36);
+		contentPane.add(contactUs_btn_mid);
+
+		JButton contactUs_btn_right = new JButton("Contact us!");
+		contactUs_btn_right.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameRightLabel.getText(), cityRightLabel.getText(), user_id, status_id);
+				myDonationCenterInfo.setVisible(true);
+				dispose();
+			}
+		});
+		contactUs_btn_right.setForeground(Color.white);
+		contactUs_btn_right.setBackground(new Color(220, 20, 60));
+		contactUs_btn_right.setBounds(740, 500, 132, 36);
+		contentPane.add(contactUs_btn_right);
+
+		// PUT LEFT AND RIGHT ARROWS
+		JButton donationCenterGroup_btn_1 = new JButton("Next");
+		donationCenterGroup_btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if(number_of_updates_done == length_of_tuples) {
+					JOptionPane myOption = new JOptionPane();
+					myOption.showMessageDialog(null, "All available blood banks displayed");
+				}else {
+					if(update_index == 1) {
+						nameLeftLabel.setText(bankName.get(number_of_updates_done));
+						cityLeftLabel.setText(cityName.get(number_of_updates_done));
+
+						number_of_updates_done++;
+						update_index++;
+					}
+
+					if(number_of_updates_done != length_of_tuples) {
+						if(update_index == 2) {
+							nameMidLabel.setText(bankName.get(number_of_updates_done));
+							cityMidLabel.setText(cityName.get(number_of_updates_done));
+
+							number_of_updates_done++;
+							update_index++;
+						}
+					}
+
+					if(number_of_updates_done != length_of_tuples) {
+						if(update_index == 3) {
+							nameRightLabel.setText(bankName.get(number_of_updates_done));
+							cityRightLabel.setText(cityName.get(number_of_updates_done));
+							number_of_updates_done++;
+							update_index = 1;
+						}
+					}
+
+
+				}
+			}
+		});
+
+		//NEXT
+
+		donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
+		donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
+		donationCenterGroup_btn_1.setBounds(444, 230, 97, 25);
+		contentPane.add(donationCenterGroup_btn_1);
+
+
+		JLabel templateLabel = new JLabel("");
+		templateLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/Donation censters_template.png")));
+		templateLabel.setBounds(0, 40, 1137, 724);
+		contentPane.add(templateLabel);
+
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(573, 381, 46, 14);
+		contentPane.add(lblNewLabel);
+
+		Database_Connection = myDataBase.Connect_to_DataBase();
+		myStatement = Database_Connection.createStatement();
+		myResultset = myStatement.executeQuery("SELECT Name, City, District, Neighborhood, Phone_no from Blood_Bank, Address, User, Status where Blood_Bank.Bank_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id");
+
+
+		while(myResultset.next()) {
+			bankName.add(myResultset.getString("Name"));
+			cityName.add(myResultset.getString("City"));
+			phone_No.add(myResultset.getString("Phone_no"));
+			addressDetails.add(myResultset.getString("Neighborhood") + ", " + myResultset.getString("District"));
+			length_of_tuples++;
+		}
+
+		if(number_of_updates_done != length_of_tuples) {
+			if(update_index == 1) {
+				nameLeftLabel.setText(bankName.get(number_of_updates_done));
+				cityLeftLabel.setText(cityName.get(number_of_updates_done));
+
+				number_of_updates_done++;
+				update_index++;
+			}
+		}
+
+		if(number_of_updates_done != length_of_tuples) {
+			if(update_index == 2) {
+				nameMidLabel.setText(bankName.get(number_of_updates_done));
+				cityMidLabel.setText(cityName.get(number_of_updates_done));
+
+				number_of_updates_done++;
+				update_index++;
+			}
+		}
+
+		if(number_of_updates_done != length_of_tuples) {
+			if(update_index == 3) {
+				nameRightLabel.setText(bankName.get(number_of_updates_done));
+				cityRightLabel.setText(cityName.get(number_of_updates_done));
+
+				number_of_updates_done++;
+				update_index = 1;
+			}
+		}
 
 
 
@@ -380,5 +326,5 @@ public class Donation_centers extends JFrame {
 
 
 
-    }
+	}
 }
