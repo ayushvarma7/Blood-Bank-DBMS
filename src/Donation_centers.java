@@ -181,7 +181,30 @@ public class Donation_centers extends JFrame {
 		JButton contactUs_btn_left = new JButton("Contact us!");
 		contactUs_btn_left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameLeftLabel.getText(), cityLeftLabel.getText(), user_id, status_id);
+			String add = "none";
+			String phone = "none";
+			int cap = 0;
+				try {
+					Database_Connection = myDataBase.Connect_to_DataBase();
+					myStatement = Database_Connection.createStatement();
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					while(myResultset.next())
+					{
+						System.out.println(myResultset.getString(6));
+
+						if(nameLeftLabel.getText().equals(myResultset.getString(6)))
+						{
+							add = myResultset.getString(3)+" "+myResultset.getString(4);
+							phone = myResultset.getString(2);
+							cap = myResultset.getInt(5);
+						}}
+				Database_Connection.close();
+				}
+				catch (Exception exception) {
+					exception.printStackTrace();
+				}
+
+				donations_centers_info myDonationCenterInfo = new donations_centers_info(nameLeftLabel.getText(), cityLeftLabel.getText(), add,phone,cap, user_id, status_id);
 				myDonationCenterInfo.setVisible(true);
 				dispose();
 			}
@@ -195,11 +218,35 @@ public class Donation_centers extends JFrame {
 		JButton contactUs_btn_mid = new JButton("Contact us!"); //CONTACT US WHITE BEKAAR PAGE KHULTA HAI
 		contactUs_btn_mid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameMidLabel.getText(), cityMidLabel.getText(), user_id, status_id);
-				myDonationCenterInfo.setVisible(true);
-				dispose();
-			}
-		});
+				String add = "none";
+				String phone = "none";
+				int cap = 0;
+				try {
+					Database_Connection = myDataBase.Connect_to_DataBase();
+					myStatement = Database_Connection.createStatement();
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					while (myResultset.next()) {
+						System.out.println(myResultset.getString(6));
+
+						if (nameMidLabel.getText().equals(myResultset.getString(6))) {
+							add = myResultset.getString(3) + " " + myResultset.getString(4);
+							phone = myResultset.getString(2);
+							cap = myResultset.getInt(5);
+
+							System.out.println(add);
+							System.out.println(phone);
+							System.out.println(cap);
+
+						}
+
+					}
+				} catch (Exception exception) {
+					exception.printStackTrace();}
+					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameMidLabel.getText(), cityMidLabel.getText(), add, phone, cap, user_id, status_id);
+					myDonationCenterInfo.setVisible(true);
+					dispose();
+
+			}});
 
 		contactUs_btn_mid.setForeground(Color.white);
 		contactUs_btn_mid.setBackground(new Color(220, 20, 60));
@@ -209,11 +256,36 @@ public class Donation_centers extends JFrame {
 		JButton contactUs_btn_right = new JButton("Contact us!");
 		contactUs_btn_right.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DonationCenterInfo myDonationCenterInfo = new DonationCenterInfo(nameRightLabel.getText(), cityRightLabel.getText(), user_id, status_id);
-				myDonationCenterInfo.setVisible(true);
-				dispose();
-			}
-		});
+				String add = "none";
+				String phone = "none";
+				int cap = 0;
+				try {
+					Database_Connection = myDataBase.Connect_to_DataBase();
+					myStatement = Database_Connection.createStatement();
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					while (myResultset.next()) {
+						System.out.println(myResultset.getString(6));
+
+						if (nameRightLabel.getText().equals(myResultset.getString(6))) {
+							add = myResultset.getString(3) + " " + myResultset.getString(4);
+							phone = myResultset.getString(2);
+							cap = myResultset.getInt(5);
+
+							System.out.println(add);
+							System.out.println(phone);
+							System.out.println(cap);
+
+						}
+
+					}
+				} catch (Exception exception) {
+					exception.printStackTrace();}
+					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameRightLabel.getText(), cityRightLabel.getText(), add, phone, cap, user_id, status_id);
+					myDonationCenterInfo.setVisible(true);
+					dispose();
+
+			}});
+
 		contactUs_btn_right.setForeground(Color.white);
 		contactUs_btn_right.setBackground(new Color(220, 20, 60));
 		contactUs_btn_right.setBounds(740, 500, 132, 36);
@@ -267,8 +339,6 @@ public class Donation_centers extends JFrame {
 		donationCenterGroup_btn_1.setBounds(544, 230, 97, 25);
 		contentPane.add(donationCenterGroup_btn_1);
 
-
-		//Previous Button
 		JButton donationCenterGroup_btn_2 = new JButton("Previous");
 		donationCenterGroup_btn_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -314,11 +384,12 @@ public class Donation_centers extends JFrame {
 		donationCenterGroup_btn_2.setBounds(344, 230, 97, 25);
 		contentPane.add(donationCenterGroup_btn_2);
 
-
 		JLabel templateLabel = new JLabel("");
 		templateLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/Donation censters_template.png")));
 		templateLabel.setBounds(0, 40, 1137, 724);
 		contentPane.add(templateLabel);
+
+		// YAHAN SE SMJHNA HAI !!!! //
 
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(573, 381, 46, 14);
@@ -334,6 +405,7 @@ public class Donation_centers extends JFrame {
 			cityName.add(myResultset.getString("City"));
 			phone_No.add(myResultset.getString("Phone_no"));
 			addressDetails.add(myResultset.getString("Neighborhood") + ", " + myResultset.getString("District"));
+
 			length_of_tuples++;
 		}
 
