@@ -60,12 +60,12 @@ public class Admin_page extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Admin_page() throws Exception {
 		Initialize();
 	}
-	
+
 	public Admin_page(int user_id) throws Exception {
 		this.user_id = user_id;
 		Initialize();
@@ -91,7 +91,7 @@ public class Admin_page extends JFrame {
 			g.drawImage(img, 0, 0, null);
 		}
 	}
-	
+
 	void Initialize() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 0, 983, 728); //SCREEN SIZE PERFECT
@@ -100,7 +100,7 @@ public class Admin_page extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel side_panels = new JPanel();
 		side_panels.setBackground(Color.black);
 		side_panels.setBounds(0, 0, 225, 650);
@@ -112,39 +112,15 @@ public class Admin_page extends JFrame {
 		main_content.setBounds(225,120,760,650);
 		contentPane.add(main_content);
 
-		//NAHI CHAL RAHA IDK WHY
-/*
-		Image image22 = new Image("C://xampp//htdocs//Blood-Bank-DBMS-master//Blood-Bank-DBMS-master//bin//photos//admin_back.jpeg");
-		ImageView imageView = new ImageView(image22);
-		imageView.setPreserveRatio(true);
-		ImageIcon icon = new ImageIcon("C:/xampp/htdocs/Blood-Bank-DBMS-master/Blood-Bank-DBMS-master/bin/photos/admin_back");
-		JLabel admin_back = new JLabel(icon);
-		JLabel admin_back = new JLabel();
-		admin_back.setBackground(Color.blue);
-		admin_back.setBounds(0,0,225,50);
-		contentPane.add(admin_back);
 
-		ImagePanel panel = new ImagePanel(new ImageIcon(getClass()
-				.getResource("/Resources/background.png"))
-				.getImage());
-		contentPane.add(panel);*/
-
-		JButton btnDashboard = new JButton("Dashboard");
 		JButton btncenter = new JButton("Donation Centers");
 		JButton btnUsers = new JButton("Users");
 		JButton btnDonors = new JButton("Donors");
-		JButton btnGroups = new JButton("Blood Groups");
 
-
-
-		btnDashboard.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnDashboard.setBackground(new Color(245, 245, 245));
-		btnDashboard.setBounds(68, 150, 100, 50);
-		side_panels.add(btnDashboard);
 
 		btncenter.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btncenter.setBackground(new Color(245, 245, 245));
-		btncenter.setBounds(38, 250, 160, 50);
+		btncenter.setBounds(38, 220, 160, 50);
 		side_panels.add(btncenter);
 
 		btnUsers.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -154,13 +130,9 @@ public class Admin_page extends JFrame {
 
 		btnDonors.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnDonors.setBackground(new Color(245, 245, 245));
-		btnDonors.setBounds(68, 450, 100, 50);
+		btnDonors.setBounds(68, 490, 100, 50);
 		side_panels.add(btnDonors);
 
-		btnGroups.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnGroups.setBackground(new Color(245, 245, 245));
-		btnGroups.setBounds(52, 550, 130, 50);
-		side_panels.add(btnGroups);
 
 
 
@@ -168,7 +140,7 @@ public class Admin_page extends JFrame {
 		profile_icon.setIcon(new ImageIcon(Admin_page.class.getResource("/photos/profile_icon.png")));
 		profile_icon.setBounds(83, 42, 59, 67);
 		side_panels.add(profile_icon);
-		
+
 /*		JLabel saveLifeLabel = new JLabel("Save a life!");
 		saveLifeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		saveLifeLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
@@ -176,6 +148,21 @@ public class Admin_page extends JFrame {
 		saveLifeLabel.setBounds(12, 600, 199, 67);
 		side_panels.add(saveLifeLabel);
 		*/
+
+		// string name = sql( where user_id = )
+String user = null;
+		try {
+			Database_Connection = myDataBase.Connect_to_DataBase();
+			myStatement = Database_Connection.createStatement();
+
+			myResultset = myStatement.executeQuery("SELECT `First_Name`, Recipient_ID FROM `Recipient`JOIN User where User.User_Id=Recipient.Recipient_Id");
+			while (myResultset.next()) {
+				if(user_id==myResultset.getInt(2))
+				{
+				user = myResultset.getString(1);}
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();}
 
 		JLabel welcom_label = new JLabel("Welcome Admin");
 		welcom_label.setForeground(new Color(203,26,23));
@@ -185,21 +172,21 @@ public class Admin_page extends JFrame {
 		contentPane.add(welcom_label);
 
 
-		
+
 		JScrollPane infoPane = new JScrollPane();
 		infoPane.setBounds(20, 100, 679, 345);
 		JTable table = new JTable();
 		Database_Connection = myDataBase.Connect_to_DataBase();
 		myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
-		myResultset = myStatement.executeQuery("select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City ,  District ,  Neighborhood, Phone_No \r\n" + 
-				"from User , Status , Address , Donor , Blood_Type\r\n" + 
-				"where Donor.Donor_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Donor.Blood_Id = Blood_Type.Blood_Id\r\n" + 
-				"Union\r\n" + 
-				"select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City , District , Neighborhood, Phone_No \r\n" + 
-				"from User , Status , Address , Recipient , Blood_Type\r\n" + 
-				"where Recipient.Recipient_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Recipient.Blood_Id = Blood_Type.Blood_Id\r\n" + 
+		myResultset = myStatement.executeQuery("select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City ,  District ,  Neighborhood, Phone_No \r\n" +
+				"from User , Status , Address , Donor , Blood_Type\r\n" +
+				"where Donor.Donor_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Donor.Blood_Id = Blood_Type.Blood_Id\r\n" +
+				"Union\r\n" +
+				"select User_Id , concat(First_Name , \" \" , Last_Name) as Name , Status , Blood_Code as Blood_Type , City , District , Neighborhood, Phone_No \r\n" +
+				"from User , Status , Address , Recipient , Blood_Type\r\n" +
+				"where Recipient.Recipient_Id = User.User_Id and User.Status_Id = Status.Status_Id and User.Address_Id = Address.Address_Id and Recipient.Blood_Id = Blood_Type.Blood_Id\r\n" +
 				"order by User_Id");
-		
+
 		infoPane.setViewportView(table);
 		table.setModel(DbUtils.resultSetToTableModel(myResultset));
 
@@ -229,27 +216,7 @@ public class Admin_page extends JFrame {
 
 		// BUTTON ACTIONs sidepane //
 
-		btnDashboard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent grpaction) {
-				try {
 
-					main_content.removeAll();
-					JLabel dash_label = new JLabel("Dashboard");
-					dash_label.setForeground(Color.WHITE);
-					dash_label.setFont(new Font("Tahoma", Font.BOLD, 33));
-					dash_label.setHorizontalAlignment(SwingConstants.CENTER);
-					dash_label.setBounds(200, 0, 231, 72);
-
-					main_content.add(dash_label);
-					main_content.repaint();
-
-
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 
 		btncenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -290,16 +257,7 @@ public class Admin_page extends JFrame {
 			}
 		});
 
-		btnDashboard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent useraction) {
-				try {
-						// display no of users etc
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
+
 
 		btnDonors.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent grpaction) {
@@ -336,29 +294,7 @@ public class Admin_page extends JFrame {
 			}
 		});
 
-		btnGroups.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent grpaction) {
-				try {
-					System.out.println("111");
-					main_content.removeAll();
-					JLabel bgrp_label = new JLabel("Blood Groups");
-					bgrp_label.setForeground(Color.WHITE);
-					bgrp_label.setFont(new Font("Tahoma", Font.BOLD, 33));
-					bgrp_label.setHorizontalAlignment(SwingConstants.CENTER);
-					bgrp_label.setBounds(200, 0, 231, 72);
-					main_content.add(bgrp_label);
-					main_content.add(grp_Ap);
-					main_content.add(grp_Bp);
-					main_content.repaint();
-					main_content.validate();
 
-
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 
 
 		JButton btnNewButton = new JButton("");
@@ -374,10 +310,10 @@ public class Admin_page extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(Admin_page.class.getResource("/photos/exit.png")));
 		btnNewButton.setBounds(882, 26, 75, 67);
 		contentPane.add(btnNewButton);
-		
+
 		Database_Connection.close();
 		myStatement.close();
 		myResultset.close();
-		
+
 	}
 }
