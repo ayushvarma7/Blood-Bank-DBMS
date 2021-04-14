@@ -44,6 +44,9 @@ public class Sign_Up_Frame extends JFrame {
 	private JLabel phonenumberLabel;
 	private JLabel cityLabel;
 	private JLabel lblBloodType;
+//	private JTextField districtField;
+//	private JTextField neighborhoodField;
+//	private JTextField cityField;
 	private JPasswordField passwordField;
 	private JButton signupButton;
 	private JLabel districtLabel;
@@ -160,6 +163,21 @@ public class Sign_Up_Frame extends JFrame {
 		phonenumberField.setColumns(10);
 		phonenumberField.setBounds(509, 336, 255, 41);
 		contentPane.add(phonenumberField);
+
+//		cityField = new JTextField();
+//		cityField.addKeyListener(new KeyAdapter() {
+//			//			Allowing only digits to be types in our field
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//				char c = e.getKeyChar();
+//				if(!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+//					e.consume();
+//				}
+//			}
+//		});
+//		cityField.setColumns(10);
+//		cityField.setBounds(122, 336, 108, 41);
+//		contentPane.add(cityField);
 		
 		bloodtype_comboBox = new JComboBox();
 		bloodtype_comboBox.setBackground(new Color(255, 255, 255));
