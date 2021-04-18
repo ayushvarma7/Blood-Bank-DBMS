@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 public class Donation_centers extends JFrame {
 
@@ -92,39 +93,60 @@ public class Donation_centers extends JFrame {
 //		btnNewButton.setBounds(1050, 11, 61, 67);
 		contentPane.add(btnNewButton);
 
+
 		Database_Connection = myDataBase.Connect_to_DataBase();
-		myStatement = Database_Connection.createStatement();
-//		myResultset = myStatement.executeQuery("SELECT Status.Status_Id FROM `User`, `Status` WHERE User.Status_Id=Status.Status_Id");
-		myResultset = myStatement.executeQuery("SELECT Status.Status_Id FROM `User`, `Status`, `Recipient` WHERE User.Status_Id=Status.Status_Id and User.User_Id=Recipient.Recipient_Id");
-			while(myResultset.next()){
-//				System.out.println(myResultset.getInt(1));
+		myStatement = (Objects.requireNonNull(Database_Connection.createStatement()));
+		myResultset = myStatement.executeQuery("select User_ID , Status_ID from User ");
+
+		while (myResultset.next()) {
+			if(user_id==myResultset.getInt(1))
+			{
+				status_id = myResultset.getInt(2);
 
 			}
+
+		}
+
 
 		JButton btnBackButton = new JButton("Back"); //BACK
 		btnBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				Admin_page myAdminPage = null;
-				try {
-					myAdminPage = new Admin_page(user_id);
-					myAdminPage.setVisible(true);
-					dispose();
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(status_id==1)
+				{
+					Admin_page myAdminPage = null;
+					try {
+						myAdminPage = new Admin_page(user_id);
+						myAdminPage.setVisible(true);
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 				}
+				else
+				{
+					Profile myProfilePage = null;
+					try {
+						myProfilePage = new Profile(user_id,status_id);
+						myProfilePage.setVisible(true);
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+
+
 			}
 		});
 
 		btnBackButton.setBackground(Color.white);
 		btnBackButton.setForeground(Color.RED);
 		btnBackButton.setBounds(10, 11, 81, 50);
-//		btnNewButton.setBounds(1050, 11, 61, 67);
 
-		//if admin then show back button else NO
-		System.out.println(status_id);
-				if(status_id==1) 	contentPane.add(btnBackButton);
-				else contentPane.remove(btnBackButton);
+		contentPane.add(btnBackButton);
+
 
 		final BufferedImage image = ImageIO.read(new URL(
 				"https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-blood-donation-art-free-simple-white-banner-image_180424.jpg"));
@@ -142,8 +164,6 @@ public class Donation_centers extends JFrame {
 		banner = new JLabel("",banner1,JLabel.CENTER);
 		banner.setBounds(0,0,1000,220);
 		contentPane.add(banner);
-
-
 
 		JLabel nameRightLabel = new JLabel("Donation center Name");
 		nameRightLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -190,6 +210,8 @@ public class Donation_centers extends JFrame {
 		contentPane.add(cityMidLabel);
 
 
+
+
 		JButton contactUs_btn_left = new JButton("Contact us!");
 		contactUs_btn_left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -202,7 +224,6 @@ public class Donation_centers extends JFrame {
 					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
 					while(myResultset.next())
 					{
-						System.out.println(myResultset.getString(6));
 
 						if(nameLeftLabel.getText().equals(myResultset.getString(6)))
 						{
@@ -216,11 +237,12 @@ public class Donation_centers extends JFrame {
 					exception.printStackTrace();
 				}
 
-				donations_centers_info myDonationCenterInfo = new donations_centers_info(nameLeftLabel.getText(), cityLeftLabel.getText(), add,phone,cap, user_id, status_id);
+				donations_centers_info myDonationCenterInfo = new donations_centers_info(nameLeftLabel.getText(), cityLeftLabel.getText(), add,phone,cap, user_id,status_id);
 				myDonationCenterInfo.setVisible(true);
-				dispose();
+				//dispose();
 			}
 		});
+
 
 		contactUs_btn_left.setForeground(new Color(255, 250, 240));
 		contactUs_btn_left.setBackground(new Color(220, 20, 60));
@@ -238,27 +260,25 @@ public class Donation_centers extends JFrame {
 					myStatement = Database_Connection.createStatement();
 					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
 					while (myResultset.next()) {
-						System.out.println(myResultset.getString(6));
 
 						if (nameMidLabel.getText().equals(myResultset.getString(6))) {
 							add = myResultset.getString(3) + " " + myResultset.getString(4);
 							phone = myResultset.getString(2);
 							cap = myResultset.getInt(5);
 
-							System.out.println(add);
-							System.out.println(phone);
-							System.out.println(cap);
 
 						}
 
 					}
 				} catch (Exception exception) {
 					exception.printStackTrace();}
-					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameMidLabel.getText(), cityMidLabel.getText(), add, phone, cap, user_id, status_id);
+					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameMidLabel.getText(), cityMidLabel.getText(), add, phone, cap, user_id,status_id);
 					myDonationCenterInfo.setVisible(true);
-					dispose();
+					//dispose();
 
 			}});
+
+
 
 		contactUs_btn_mid.setForeground(Color.white);
 		contactUs_btn_mid.setBackground(new Color(220, 20, 60));
@@ -276,25 +296,21 @@ public class Donation_centers extends JFrame {
 					myStatement = Database_Connection.createStatement();
 					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
 					while (myResultset.next()) {
-						System.out.println(myResultset.getString(6));
 
 						if (nameRightLabel.getText().equals(myResultset.getString(6))) {
 							add = myResultset.getString(3) + " " + myResultset.getString(4);
 							phone = myResultset.getString(2);
 							cap = myResultset.getInt(5);
 
-							System.out.println(add);
-							System.out.println(phone);
-							System.out.println(cap);
 
 						}
 
 					}
 				} catch (Exception exception) {
 					exception.printStackTrace();}
-					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameRightLabel.getText(), cityRightLabel.getText(), add, phone, cap, user_id, status_id);
+					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameRightLabel.getText(), cityRightLabel.getText(), add, phone, cap, user_id,status_id);
 					myDonationCenterInfo.setVisible(true);
-					dispose();
+					//dispose();
 
 			}});
 
@@ -302,6 +318,8 @@ public class Donation_centers extends JFrame {
 		contactUs_btn_right.setBackground(new Color(220, 20, 60));
 		contactUs_btn_right.setBounds(740, 500, 132, 36);
 		contentPane.add(contactUs_btn_right);
+
+
 
 		// PUT LEFT AND RIGHT ARROWS
 		JButton donationCenterGroup_btn_1 = new JButton("Next");
@@ -348,7 +366,7 @@ public class Donation_centers extends JFrame {
 
 		donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
 		donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
-			donationCenterGroup_btn_1.setBounds(544, 230, 97, 25);
+		donationCenterGroup_btn_1.setBounds(544, 230, 97, 25);
 		contentPane.add(donationCenterGroup_btn_1);
 
 		JButton donationCenterGroup_btn_2 = new JButton("Previous");
