@@ -221,7 +221,7 @@ public class Donation_centers extends JFrame {
 				try {
 					Database_Connection = myDataBase.Connect_to_DataBase();
 					myStatement = Database_Connection.createStatement();
-					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  Address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
 					while(myResultset.next())
 					{
 
@@ -239,7 +239,7 @@ public class Donation_centers extends JFrame {
 
 				donations_centers_info myDonationCenterInfo = new donations_centers_info(nameLeftLabel.getText(), cityLeftLabel.getText(), add,phone,cap, user_id,status_id);
 				myDonationCenterInfo.setVisible(true);
-				//dispose();
+				dispose();
 			}
 		});
 
@@ -258,7 +258,7 @@ public class Donation_centers extends JFrame {
 				try {
 					Database_Connection = myDataBase.Connect_to_DataBase();
 					myStatement = Database_Connection.createStatement();
-					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from Address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=Address.Address_Id");
 					while (myResultset.next()) {
 
 						if (nameMidLabel.getText().equals(myResultset.getString(6))) {
@@ -274,7 +274,7 @@ public class Donation_centers extends JFrame {
 					exception.printStackTrace();}
 					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameMidLabel.getText(), cityMidLabel.getText(), add, phone, cap, user_id,status_id);
 					myDonationCenterInfo.setVisible(true);
-					//dispose();
+					dispose();
 
 			}});
 
@@ -294,7 +294,7 @@ public class Donation_centers extends JFrame {
 				try {
 					Database_Connection = myDataBase.Connect_to_DataBase();
 					myStatement = Database_Connection.createStatement();
-					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
+					myResultset = myStatement.executeQuery("SELECT User_ID, Phone_no ,District, Neighborhood, Capacity,Name from  Address, User, Blood_Bank where Blood_Bank.Bank_Id = User.User_Id and User.Address_Id = Address.Address_Id and User.user_id=user_id");
 					while (myResultset.next()) {
 
 						if (nameRightLabel.getText().equals(myResultset.getString(6))) {
@@ -310,7 +310,7 @@ public class Donation_centers extends JFrame {
 					exception.printStackTrace();}
 					donations_centers_info myDonationCenterInfo = new donations_centers_info(nameRightLabel.getText(), cityRightLabel.getText(), add, phone, cap, user_id,status_id);
 					myDonationCenterInfo.setVisible(true);
-					//dispose();
+					dispose();
 
 			}});
 

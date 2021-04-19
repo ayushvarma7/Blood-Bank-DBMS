@@ -1,12 +1,14 @@
 # Blood donation DBMS for CSD202
 
 # Project decription 📃
-The objective of this project is to create an optimized and efficient database for blood donations with a modern designed software.
+The objective of this project is to create an efficient database for blood donations.
 # Screenshots 📸
 
-![](screenshot/1.jpg)
-![](screenshot/2.jpg)
-![](screenshot/3.png)
-![](screenshot/4.jpg)
-![](screenshot/5.jpg)
-![](screenshot/6.jpg)
+![](screenshot/Sign_Up_Page.PNG)
+![](screenshot/Start_Page.PNG)
+![](screenshot/Dashboard_Page.PNG)
+![](screenshot/Donors_Page.PNG)
+![](screenshot/Donation_Centers_Page.PNG)
+![](screenshot/Donation_Centers_Details_Page.PNG)
+![](screenshot/Schema.PNG)
+

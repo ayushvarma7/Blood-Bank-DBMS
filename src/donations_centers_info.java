@@ -83,6 +83,7 @@ public class donations_centers_info extends JFrame {
 		btnBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+
 				Donation_centers myCenterPage = null;
 				try {
 					myCenterPage = new Donation_centers();
