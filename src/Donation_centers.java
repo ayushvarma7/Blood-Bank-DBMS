@@ -227,7 +227,7 @@ public class Donation_centers extends JFrame {
 
 						if(nameLeftLabel.getText().equals(myResultset.getString(6)))
 						{
-							add = myResultset.getString(3)+" "+myResultset.getString(4);
+							add = myResultset.getString(3)+" Delhi - "+" "+myResultset.getString(4);
 							phone = myResultset.getString(2);
 							cap = myResultset.getInt(5);
 						}}
@@ -262,7 +262,7 @@ public class Donation_centers extends JFrame {
 					while (myResultset.next()) {
 
 						if (nameMidLabel.getText().equals(myResultset.getString(6))) {
-							add = myResultset.getString(3) + " " + myResultset.getString(4);
+							add = myResultset.getString(3) + "  Delhi - "+ myResultset.getString(4);
 							phone = myResultset.getString(2);
 							cap = myResultset.getInt(5);
 
@@ -298,7 +298,7 @@ public class Donation_centers extends JFrame {
 					while (myResultset.next()) {
 
 						if (nameRightLabel.getText().equals(myResultset.getString(6))) {
-							add = myResultset.getString(3) + " " + myResultset.getString(4);
+							add = myResultset.getString(3) +" Delhi - " + myResultset.getString(4);
 							phone = myResultset.getString(2);
 							cap = myResultset.getInt(5);
 
@@ -322,8 +322,8 @@ public class Donation_centers extends JFrame {
 
 
 		// PUT LEFT AND RIGHT ARROWS
-		JButton donationCenterGroup_btn_1 = new JButton("Next");
-		donationCenterGroup_btn_1.addActionListener(new ActionListener() {
+		JButton donationCenterGroup_btn_2 = new JButton("Next");
+		donationCenterGroup_btn_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(number_of_updates_done == length_of_tuples) {
@@ -364,13 +364,13 @@ public class Donation_centers extends JFrame {
 
 		//NEXT
 
-		donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
-		donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
-		donationCenterGroup_btn_1.setBounds(544, 230, 97, 25);
-		contentPane.add(donationCenterGroup_btn_1);
+		donationCenterGroup_btn_2.setForeground(new Color(255, 255, 255));
+		donationCenterGroup_btn_2.setBackground(new Color(220, 20, 60));
+		donationCenterGroup_btn_2.setBounds(544, 230, 97, 25);
+		contentPane.add(donationCenterGroup_btn_2);
 
-		JButton donationCenterGroup_btn_2 = new JButton("Previous");
-		donationCenterGroup_btn_2.addActionListener(new ActionListener() {
+		JButton donationCenterGroup_btn_1 = new JButton("Previous");
+		donationCenterGroup_btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(number_of_updates_done ==0) {
@@ -409,17 +409,16 @@ public class Donation_centers extends JFrame {
 			}
 		});
 
-		donationCenterGroup_btn_2.setForeground(new Color(255, 255, 255));
-		donationCenterGroup_btn_2.setBackground(new Color(220, 20, 60));
-		donationCenterGroup_btn_2.setBounds(344, 230, 97, 25);
-		contentPane.add(donationCenterGroup_btn_2);
+		donationCenterGroup_btn_1.setForeground(new Color(255, 255, 255));
+		donationCenterGroup_btn_1.setBackground(new Color(220, 20, 60));
+		donationCenterGroup_btn_1.setBounds(344, 230, 97, 25);
+		contentPane.add(donationCenterGroup_btn_1);
 
 		JLabel templateLabel = new JLabel("");
 		templateLabel.setIcon(new ImageIcon(Donation_centers.class.getResource("/photos/Donation censters_template.png")));
 		templateLabel.setBounds(0, 40, 1137, 724);
 		contentPane.add(templateLabel);
 
-		// YAHAN SE SMJHNA HAI !!!! //
 
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(573, 381, 46, 14);
@@ -438,6 +437,7 @@ public class Donation_centers extends JFrame {
 
 			length_of_tuples++;
 		}
+
 
 		if(number_of_updates_done != length_of_tuples) {
 			if(update_index == 1) {
